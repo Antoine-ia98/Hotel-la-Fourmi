@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Hôtel Restaurant La Fourmi — Bourbach-le-Haut</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --vert:#243D26;--vert2:#3A6140;--moss:#4A7251;
+  --or:#B8852A;--or2:#D4A84B;
+  --creme:#F6EDD8;--chaud:#EDE0C3;
+  --texte:#252520;--gris:#6A6A62;--blanc:#FDFAF4;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Raleway',sans-serif;background:var(--blanc);color:var(--texte);font-size:16px;line-height:1.7}
+
+/* ── NAVBAR ── */
+.navbar{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  background:rgba(30,50,32,.97);backdrop-filter:blur(10px);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 24px;height:64px;
+}
+.nav-logo{
+  font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;
+  color:var(--creme);text-decoration:none;letter-spacing:.03em;
+  display:flex;align-items:center;
+}
+.nav-logo span{color:var(--or2)}
+.nav-right{display:flex;align-items:center;gap:16px}
+.nav-tel{color:rgba(246,237,216,.65);font-size:13px;font-weight:500;text-decoration:none;transition:color .3s}
+.nav-tel:hover{color:var(--or2)}
+.nav-btn{
+  background:var(--or);color:#fff;
+  padding:10px 20px;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  text-decoration:none;transition:background .3s;white-space:nowrap;
+}
+.nav-btn:hover{background:var(--or2)}
+
+/* ── HAMBURGER ── */
+.hamburger{
+  display:flex;flex-direction:column;justify-content:center;gap:5px;
+  width:40px;height:40px;cursor:pointer;background:none;border:none;
+  padding:6px;order:-1;flex-shrink:0;
+}
+.hamburger span{
+  display:block;width:24px;height:2px;background:var(--creme);
+  transition:all .3s;transform-origin:center;
+}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+/* ── MENU DROPDOWN ── */
+.nav-menu{
+  position:fixed;top:64px;left:0;width:280px;
+  background:rgba(22,38,24,.98);backdrop-filter:blur(12px);
+  z-index:199;transform:translateX(-100%);transition:transform .35s cubic-bezier(.4,0,.2,1);
+  box-shadow:4px 0 24px rgba(0,0,0,.3);
+}
+.nav-menu.open{transform:translateX(0)}
+.nav-menu-item{
+  display:flex;align-items:center;gap:14px;
+  padding:20px 28px;
+  font-size:14px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(246,237,216,.7);cursor:pointer;border:none;background:transparent;
+  border-bottom:1px solid rgba(255,255,255,.07);width:100%;text-align:left;
+  transition:all .25s;
+}
+.nav-menu-item:hover{color:var(--or2);background:rgba(255,255,255,.04);padding-left:36px}
+.nav-menu-item.active{color:var(--or2);border-left:3px solid var(--or2)}
+.nav-menu-item:last-child{border-bottom:none}
+.nav-menu-icon{font-size:18px;width:24px;text-align:center}
+.nav-overlay{
+  position:fixed;inset:0;top:64px;background:rgba(0,0,0,.4);
+  z-index:198;opacity:0;pointer-events:none;transition:opacity .3s;
+}
+.nav-overlay.open{opacity:1;pointer-events:all}
+
+/* ── PAGES ── */
+.page{display:none;padding-top:64px;min-height:100vh}
+.page.active{display:block}
+
+/* ── COMMUNS ── */
+.section{padding:80px 24px}
+.container{max-width:1060px;margin:0 auto}
+.label{font-size:11px;font-weight:600;letter-spacing:.35em;text-transform:uppercase;color:var(--or);margin-bottom:12px}
+.titre{font-family:'Cormorant Garamond',serif;font-size:clamp(34px,5vw,56px);font-weight:300;color:var(--vert);line-height:1.1}
+.titre em{font-style:italic;color:var(--vert2)}
+.barre{width:50px;height:2px;background:var(--or);margin:20px 0 28px}
+.btn-or{background:var(--or);color:#fff;padding:15px 34px;font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;display:inline-block;transition:all .3s}
+.btn-or:hover{background:var(--or2);transform:translateY(-2px)}
+.btn-vert{background:var(--vert);color:var(--creme);padding:15px 34px;font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;display:inline-block;transition:all .3s}
+.btn-vert:hover{background:var(--vert2);transform:translateY(-2px)}
+
+/* ════════════════════════════
+   PAGE 1 — ACCUEIL
+════════════════════════════ */
+.hero{
+  min-height:calc(100vh - 64px);
+  background:linear-gradient(160deg,#1C3020 0%,#2B4A2E 45%,#3A6140 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:80px 24px 60px;position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.025) 0,rgba(255,255,255,.025) 1px,transparent 0,transparent 50%);
+  background-size:22px 22px;
+}
+.hero-eyebrow{font-size:11px;font-weight:600;letter-spacing:.4em;text-transform:uppercase;color:var(--or2);margin-bottom:20px;position:relative}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(52px,10vw,108px);font-weight:300;color:var(--creme);line-height:1;margin-bottom:10px;position:relative}
+.hero h1 em{font-style:italic;color:var(--or2)}
+.hero-sub{font-family:'Cormorant Garamond',serif;font-size:clamp(17px,2.5vw,24px);font-style:italic;font-weight:300;color:rgba(246,237,216,.7);margin-bottom:48px;position:relative}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;position:relative}
+.btn-ghost{background:transparent;color:var(--creme);padding:14px 34px;font-size:13px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;border:1px solid rgba(246,237,216,.4);display:inline-block;transition:all .3s;cursor:pointer}
+.btn-ghost:hover{border-color:var(--creme);background:rgba(246,237,216,.07)}
+
+.accueil-strip{background:var(--vert);display:flex;justify-content:center;flex-wrap:wrap}
+.accueil-strip-item{display:flex;align-items:center;gap:10px;padding:18px 28px;color:rgba(246,237,216,.8);font-size:14px;border-right:1px solid rgba(255,255,255,.1)}
+.accueil-strip-item:last-child{border-right:none}
+.accueil-strip-item svg{width:16px;height:16px;fill:var(--or2);flex-shrink:0}
+
+.accueil-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin-top:56px}
+.accueil-card{background:var(--creme);border-left:3px solid var(--or);padding:28px 24px;cursor:pointer;transition:all .3s}
+.accueil-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(36,61,38,.12)}
+.accueil-card-icon{font-size:32px;margin-bottom:12px}
+.accueil-card-titre{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;color:var(--vert);margin-bottom:6px}
+.accueil-card-txt{font-size:14px;color:var(--gris);line-height:1.6}
+.accueil-card-lien{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--or);margin-top:12px;display:block}
+
+.accueil-notes{background:var(--vert);padding:48px 24px;text-align:center}
+.notes-titre{font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;font-weight:300;color:rgba(246,237,216,.7);margin-bottom:36px}
+.notes-grid{display:flex;justify-content:center;gap:60px;flex-wrap:wrap}
+.note-item{text-align:center}
+.note-chiffre{font-family:'Cormorant Garamond',serif;font-size:60px;font-weight:300;color:var(--or2);line-height:1}
+.note-etoiles{color:var(--or2);font-size:14px;letter-spacing:2px;margin:4px 0}
+.note-source{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(246,237,216,.5)}
+
+/* ════════════════════════════
+   PAGE 2 — NOUS TROUVER
+════════════════════════════ */
+.trouver-hero{background:var(--vert);padding:64px 24px;color:var(--creme)}
+.trouver-hero .titre{color:var(--creme)}
+.trouver-hero .titre em{color:var(--or2)}
+.trouver-hero .barre{background:var(--or2)}
+.trouver-hero p{font-size:16px;color:rgba(246,237,216,.75);max-width:560px;line-height:1.8}
+
+.trouver-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;align-items:stretch}
+.trouver-infos{padding:64px 48px;background:var(--chaud)}
+.trouver-map-wrap{display:flex;flex-direction:column;min-height:500px}
+iframe.gmap{width:100%;flex:1;border:none;display:block;min-height:420px}
+.trouver-map-btn{background:var(--or);color:#fff;padding:18px 32px;text-align:center;font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;display:block;transition:background .3s}
+.trouver-map-btn:hover{background:var(--or2)}
+
+.info-bloc{margin-bottom:36px}
+.info-bloc-label{font-size:11px;font-weight:600;letter-spacing:.25em;text-transform:uppercase;color:var(--or);margin-bottom:8px}
+.info-bloc p{font-size:16px;color:var(--gris);line-height:1.8}
+.info-bloc a{color:var(--vert);text-decoration:none;font-weight:600;transition:color .3s}
+.info-bloc a:hover{color:var(--or)}
+.tel-grand{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:300;color:var(--vert);text-decoration:none;display:block;transition:color .3s}
+.tel-grand:hover{color:var(--or)}
+
+.acces-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px}
+.acces-item{background:var(--creme);padding:14px 16px;border-left:2px solid var(--or)}
+.acces-item strong{display:block;font-size:13px;color:var(--vert);font-weight:600}
+.acces-item span{font-size:13px;color:var(--gris)}
+
+/* ════════════════════════════
+   PAGE 3 — MENU & REPAS
+════════════════════════════ */
+.menu-hero{background:linear-gradient(135deg,var(--vert) 0%,var(--vert2) 100%);padding:64px 24px}
+.menu-hero .titre{color:var(--creme)}
+.menu-hero .titre em{color:var(--or2)}
+.menu-hero .barre{background:var(--or2)}
+.menu-hero p{font-size:16px;color:rgba(246,237,216,.75);max-width:560px;line-height:1.8}
+
+.menu-section{padding:72px 24px;background:var(--blanc)}
+.menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:48px}
+.menu-carte{background:var(--vert);color:var(--creme);padding:40px 36px}
+.menu-carte-titre{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;margin-bottom:6px}
+.menu-carte-titre em{font-style:italic;color:var(--or2)}
+.menu-carte-sous{font-size:12px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--or2);margin-bottom:28px}
+.menu-ligne{padding:14px 0;border-bottom:1px solid rgba(246,237,216,.1);display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:15px}
+.menu-ligne:last-of-type{border-bottom:none}
+.menu-note{font-size:12px;font-style:italic;color:var(--or2)}
+
+.formule-box{background:var(--or);color:#fff;padding:36px}
+.formule-box-titre{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;margin-bottom:4px}
+.formule-prix{font-family:'Cormorant Garamond',serif;font-size:64px;font-weight:300;color:#fff;line-height:1;margin:12px 0 4px}
+.formule-detail{font-size:14px;color:rgba(255,255,255,.8);line-height:1.7;margin-bottom:20px}
+.formule-items{list-style:none;margin-bottom:24px}
+.formule-items li{font-size:15px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.2);display:flex;align-items:center;gap:10px}
+.formule-items li:last-child{border-bottom:none}
+.formule-items li::before{content:'✓';font-weight:700;color:rgba(255,255,255,.7)}
+
+.demi-pension{background:var(--chaud);padding:36px}
+.demi-pension-titre{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:var(--vert);margin-bottom:4px}
+.demi-prix{font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:300;color:var(--or);line-height:1;margin:10px 0 4px}
+.demi-detail{font-size:14px;color:var(--gris);line-height:1.7;margin-bottom:20px}
+.demi-items{list-style:none}
+.demi-items li{font-size:15px;color:var(--gris);padding:8px 0;border-bottom:1px solid rgba(192,138,42,.2);display:flex;align-items:center;gap:10px}
+.demi-items li:last-child{border-bottom:none}
+.demi-items li::before{content:'✓';font-weight:700;color:var(--or)}
+
+.specialites-section{background:var(--creme);padding:72px 24px}
+.specialites-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;margin-top:40px}
+.spec-card{background:#fff;padding:28px 24px;border-top:3px solid var(--or)}
+.spec-emoji{font-size:30px;margin-bottom:12px}
+.spec-nom{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;color:var(--vert);margin-bottom:6px}
+.spec-desc{font-size:14px;color:var(--gris);line-height:1.6}
+.spec-badge{display:inline-block;margin-top:10px;background:var(--or);color:#fff;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px}
+
+/* ════════════════════════════
+   PAGE 4 — CHAMBRES
+════════════════════════════ */
+.chambres-hero{background:linear-gradient(160deg,#1a2e1c 0%,#2B4A2E 60%,#3A6140 100%);padding:64px 24px}
+.chambres-hero .titre{color:var(--creme)}
+.chambres-hero .titre em{color:var(--or2)}
+.chambres-hero .barre{background:var(--or2)}
+.chambres-hero p{font-size:16px;color:rgba(246,237,216,.75);max-width:560px;line-height:1.8}
+
+.chambres-section{padding:72px 24px}
+.chambres-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-top:48px}
+.chambre-card{background:#fff;border:1px solid var(--chaud);overflow:hidden;transition:transform .3s,box-shadow .3s}
+.chambre-card:hover{transform:translateY(-5px);box-shadow:0 16px 40px rgba(36,61,38,.12)}
+.chambre-img{height:200px;display:flex;align-items:center;justify-content:center;position:relative}
+.chambre-img-1{background:linear-gradient(135deg,#2B4A2E,#4A7251)}
+.chambre-img-2{background:linear-gradient(135deg,#3A5C3E,#5A8060)}
+.chambre-img-3{background:linear-gradient(135deg,#243D26,#3A6140)}
+.chambre-img svg{width:56px;height:56px;fill:rgba(255,255,255,.25)}
+.chambre-badge{position:absolute;top:14px;right:14px;background:var(--or);color:#fff;padding:5px 12px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+.chambre-body{padding:28px}
+.chambre-type{font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--or);margin-bottom:5px}
+.chambre-nom{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;color:var(--vert);margin-bottom:10px}
+.chambre-desc{font-size:14px;color:var(--gris);line-height:1.7;margin-bottom:18px}
+.chambre-equip{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:22px}
+.chambre-equip span{background:var(--creme);padding:4px 12px;font-size:12px;font-weight:500;color:var(--vert)}
+.chambre-footer{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--chaud);padding-top:18px}
+.chambre-prix{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:var(--vert)}
+.chambre-prix span{font-family:'Raleway',sans-serif;font-size:13px;font-weight:400;color:var(--gris)}
+.btn-reserver{background:var(--vert);color:#fff;padding:10px 18px;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;transition:background .3s}
+.btn-reserver:hover{background:var(--vert2)}
+
+.chambres-equip-section{background:var(--creme);padding:60px 24px}
+.equip-grid{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.equip-tag{background:#fff;border:1px solid rgba(192,138,42,.25);padding:10px 18px;font-size:13px;font-weight:500;color:var(--vert)}
+
+/* ════════════════════════════
+   PAGE 5 — CONTACT
+════════════════════════════ */
+.contact-hero{background:var(--vert2);padding:64px 24px}
+.contact-hero .titre{color:var(--creme)}
+.contact-hero .titre em{color:var(--or2)}
+.contact-hero .barre{background:var(--or2)}
+
+.contact-section{padding:72px 24px}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+
+.resa-box{background:var(--or);color:#fff;padding:44px 40px}
+.resa-box h3{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:300;margin-bottom:8px}
+.resa-box p{font-size:15px;color:rgba(255,255,255,.85);margin-bottom:28px;line-height:1.7}
+.resa-box .btn-blanc{background:#fff;color:var(--or);padding:16px 32px;font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;display:inline-block;transition:all .3s}
+.resa-box .btn-blanc:hover{background:var(--creme)}
+.resa-tel{display:block;font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:300;color:var(--creme);text-decoration:none;margin-top:28px;transition:color .3s}
+.resa-tel:hover{color:var(--or2)}
+.resa-tel-label{font-size:12px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:rgba(246,237,216,.5);margin-top:8px}
+
+.contact-infos-box{background:var(--chaud);padding:40px}
+.c-bloc{margin-bottom:32px}
+.c-lbl{font-size:11px;font-weight:600;letter-spacing:.25em;text-transform:uppercase;color:var(--or);margin-bottom:8px}
+.c-bloc p{font-size:15px;color:var(--gris);line-height:1.8}
+.c-bloc a{color:var(--vert);text-decoration:none;font-weight:600}
+
+.horaires-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+.horaire-item{background:#fff;padding:14px 16px}
+.horaire-jour{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--or);margin-bottom:4px}
+.horaire-heure{font-size:14px;color:var(--gris)}
+
+/* ── FOOTER ── */
+.footer{background:#192b1b;padding:32px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.footer-logo{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--creme)}
+.footer-logo span{color:var(--or2)}
+.footer p{font-size:12px;color:rgba(246,237,216,.35);text-align:center}
+.footer a{font-size:13px;color:rgba(246,237,216,.35);text-decoration:none;transition:color .3s}
+.footer a:hover{color:var(--or2)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .navbar{padding:0 16px}
+  .nav-tel{display:none}
+  .trouver-grid,.menu-grid,.contact-grid{grid-template-columns:1fr}
+  .acces-grid,.horaires-grid{grid-template-columns:1fr}
+  .trouver-infos{padding:40px 24px}
+  .footer{flex-direction:column;text-align:center;padding:24px 20px}
+}
+@media(max-width:600px){
+  .nav-logo{font-size:17px}
+  .notes-grid{gap:36px}
+  .menu-grid{grid-template-columns:1fr}
+  .hero-btns{flex-direction:column;align-items:center}
+}
+/* ── MODAL RÉSERVATION ── */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:500;
+  display:flex;align-items:center;justify-content:center;padding:24px;
+  opacity:0;pointer-events:none;transition:opacity .3s;
+}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.modal{
+  background:var(--blanc);max-width:460px;width:100%;
+  padding:40px 36px;position:relative;
+  transform:translateY(20px);transition:transform .3s;
+}
+.modal-overlay.open .modal{transform:translateY(0)}
+.modal-close{
+  position:absolute;top:14px;right:18px;background:none;border:none;
+  font-size:22px;cursor:pointer;color:var(--gris);line-height:1;
+}
+.modal-close:hover{color:var(--texte)}
+.modal-label{font-size:11px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--or);margin-bottom:10px}
+.modal-titre{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:300;color:var(--vert);margin-bottom:6px;line-height:1.1}
+.modal-sous{font-size:14px;color:var(--gris);margin-bottom:32px;line-height:1.6}
+.modal-choix{display:flex;flex-direction:column;gap:14px}
+.modal-btn-dormir{
+  display:flex;align-items:center;gap:16px;
+  background:var(--vert);color:var(--creme);
+  padding:20px 24px;text-decoration:none;transition:background .3s;cursor:pointer;border:none;width:100%;text-align:left;
+}
+.modal-btn-dormir:hover{background:var(--vert2)}
+.modal-btn-manger{
+  display:flex;align-items:center;gap:16px;
+  background:var(--creme);color:var(--vert);
+  padding:20px 24px;cursor:pointer;border:2px solid var(--or);
+  transition:all .3s;width:100%;text-align:left;
+}
+.modal-btn-manger:hover{background:var(--chaud)}
+.modal-btn-icon{font-size:26px;flex-shrink:0}
+.modal-btn-titre{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:400;display:block;margin-bottom:2px}
+.modal-btn-desc{font-size:13px;opacity:.75;display:block}
+.modal-tel-result{
+  display:none;
+  background:var(--creme);border-left:4px solid var(--or);
+  padding:20px 24px;margin-top:4px;
+}
+.modal-tel-result.show{display:block}
+.modal-tel-result p{font-size:14px;color:var(--gris);margin-bottom:8px}
+.modal-tel-result a{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;color:var(--vert);text-decoration:none;display:block}
+.modal-tel-result a:hover{color:var(--or)}
+.modal-tel-result span{font-size:12px;color:var(--gris)}</style>
+</head>
+<body>
+
+<!-- ══ NAVBAR ══ -->
+<nav class="navbar">
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
+  <a class="nav-logo" href="#" onclick="showPage('accueil')">La <span>Fourmi</span></a>
+  <div class="nav-right">
+    <a class="nav-tel" href="tel:+33389388602">03 89 38 86 02</a>
+    <button class="nav-btn" onclick="ouvrirModal()">Réserver</button>
+  </div>
+</nav>
+
+<!-- MENU LATÉRAL -->
+<div class="nav-menu" id="nav-menu">
+  <button class="nav-menu-item active" id="tab-accueil" onclick="showPage('accueil')">
+    <span class="nav-menu-icon">🏠</span> Accueil
+  </button>
+  <button class="nav-menu-item" id="tab-trouver" onclick="showPage('trouver')">
+    <span class="nav-menu-icon">🗺</span> Nous trouver
+  </button>
+  <button class="nav-menu-item" id="tab-menu" onclick="showPage('menu')">
+    <span class="nav-menu-icon">🍽</span> Menu & Repas
+  </button>
+  <button class="nav-menu-item" id="tab-chambres" onclick="showPage('chambres')">
+    <span class="nav-menu-icon">🛏</span> Chambres
+  </button>
+  <button class="nav-menu-item" id="tab-contact" onclick="showPage('contact')">
+    <span class="nav-menu-icon">📞</span> Contact & Réservation
+  </button>
+</div>
+<div class="nav-overlay" id="nav-overlay" onclick="closeMenu()"></div>
+
+
+<!-- ══════════════════════════════
+     PAGE 1 — ACCUEIL
+══════════════════════════════ -->
+<div class="page active" id="page-accueil">
+
+  <div class="hero">
+    <p class="hero-eyebrow">Col du Hundsrück · Alsace · Ouvert toute l'année</p>
+    <h1>Hôtel Restaurant<br><em>La Fourmi</em></h1>
+    <p class="hero-sub">Une auberge familiale au cœur des Vosges alsaciennes</p>
+    <div class="hero-btns">
+      <button class="btn-or" onclick="ouvrirModal()">Réserver une chambre</button>
+      <button class="btn-ghost" onclick="showPage('contact')">Nous contacter</button>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="container">
+      <p class="label">Bienvenue</p>
+      <h2 class="titre">Une auberge <em>authentique</em></h2>
+      <div class="barre"></div>
+      <p style="color:var(--gris);font-size:16px;max-width:680px;line-height:1.85">
+        Nichée au sommet du <strong style="color:var(--texte)">Col du Hundsrück</strong>, l'Auberge de La Fourmi vous accueille dans un cadre naturel exceptionnel au cœur du Parc des Ballons des Vosges. Tenue en famille, la maison perpétue les traditions de l'hospitalité alsacienne : accueil chaleureux, cuisine généreuse entièrement faite maison, et chambres confortables.
+      </p>
+      <div class="accueil-cards">
+        <div class="accueil-card" onclick="showPage('chambres')">
+          <div class="accueil-card-icon">🛏</div>
+          <div class="accueil-card-titre">Chambres & Séjour</div>
+          <p class="accueil-card-txt">9 chambres confortables, dont plusieurs avec vue sur le Grand Ballon. À partir de 69 €.</p>
+          <span class="accueil-card-lien">Voir les chambres →</span>
+        </div>
+        <div class="accueil-card" onclick="showPage('menu')">
+          <div class="accueil-card-icon">🍽</div>
+          <div class="accueil-card-titre">Menu & Repas</div>
+          <p class="accueil-card-txt">Cuisine alsacienne 100 % maison. Formule complète à 25 €, demi-pension disponible.</p>
+          <span class="accueil-card-lien">Voir le menu →</span>
+        </div>
+        <div class="accueil-card" onclick="showPage('trouver')">
+          <div class="accueil-card-icon">🗺</div>
+          <div class="accueil-card-titre">Nous trouver</div>
+          <p class="accueil-card-txt">Col du Hundsrück, Bourbach-le-Haut. Point de départ idéal pour la randonnée.</p>
+          <span class="accueil-card-lien">Voir l'itinéraire →</span>
+        </div>
+        <div class="accueil-card" onclick="showPage('contact')">
+          <div class="accueil-card-icon">📞</div>
+          <div class="accueil-card-titre">Réservation</div>
+          <p class="accueil-card-txt">Réservez en ligne sur Booking ou appelez-nous directement au 03 89 38 86 02.</p>
+          <span class="accueil-card-lien">Réserver →</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="accueil-notes">
+    <p class="notes-titre">Ce que pensent nos voyageurs</p>
+    <div class="notes-grid">
+      <div class="note-item">
+        <div class="note-chiffre">8,8<span style="font-size:28px;color:rgba(212,168,75,.5)">/10</span></div>
+        <div class="note-etoiles">★★★★★</div>
+        <div class="note-source">Booking.com</div>
+      </div>
+      <div class="note-item">
+        <div class="note-chiffre">4,5<span style="font-size:28px;color:rgba(212,168,75,.5)">/5</span></div>
+        <div class="note-etoiles">★★★★½</div>
+        <div class="note-source">TripAdvisor</div>
+      </div>
+      <div class="note-item">
+        <div class="note-chiffre">4,6<span style="font-size:28px;color:rgba(212,168,75,.5)">/5</span></div>
+        <div class="note-etoiles">★★★★½</div>
+        <div class="note-source">Google · 743 avis</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page-accueil -->
+
+
+<!-- ══════════════════════════════
+     PAGE 2 — NOUS TROUVER
+══════════════════════════════ -->
+<div class="page" id="page-trouver">
+
+  <div class="trouver-hero">
+    <div class="container">
+      <p class="label" style="color:var(--or2)">Localisation</p>
+      <h2 class="titre">Nous <em>trouver</em></h2>
+      <div class="barre"></div>
+      <p>Nous sommes situés au Col du Hundsrück, sur la Route Joffre, à Bourbach-le-Haut en Alsace. L'adresse exacte : <strong style="color:var(--creme)">Col du Hundsrück, 68290 Bourbach-le-Haut</strong>.</p>
+    </div>
+  </div>
+
+  <div class="trouver-grid">
+    <div class="trouver-infos">
+      <div class="info-bloc">
+        <p class="info-bloc-label">Adresse</p>
+        <p>Col du Hundsrück<br>68290 Bourbach-le-Haut<br>Alsace, France</p>
+      </div>
+      <div class="info-bloc">
+        <p class="info-bloc-label">Téléphone</p>
+        <a class="tel-grand" href="tel:+33389388602">03 89 38 86 02</a>
+      </div>
+      <div class="info-bloc">
+        <p class="info-bloc-label">Comment venir</p>
+        <div class="acces-grid">
+          <div class="acces-item">
+            <strong>🚗 En voiture</strong>
+            <span>Depuis Mulhouse : 31 km (35 min)</span>
+          </div>
+          <div class="acces-item">
+            <strong>🥾 À pied</strong>
+            <span>Environ 1h depuis Thann, par les sentiers de randonnée</span>
+          </div>
+        </div>
+      </div>
+      <div class="info-bloc">
+        <p class="info-bloc-label">Parking</p>
+        <p>Parking gratuit sur place, places pour personnes à mobilité réduite disponibles.</p>
+      </div>
+    </div>
+    <div class="trouver-map-wrap">
+      <iframe id="gmap-iframe" class="gmap"
+        src="https://maps.google.com/maps?q=Hotel+Restaurant+La+Fourmi+Bourbach-le-Haut&t=&z=13&ie=UTF8&iwloc=&output=embed"
+        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+      <a class="trouver-map-btn" href="https://maps.google.com/?q=Col+du+Hundsruck+Bourbach-le-Haut+68290+France" target="_blank">
+        Ouvrir dans Google Maps →
+      </a>
+    </div>
+  </div>
+
+</div><!-- /page-trouver -->
+
+
+<!-- ══════════════════════════════
+     PAGE 3 — MENU & REPAS
+══════════════════════════════ -->
+<div class="page" id="page-menu">
+
+  <div class="menu-hero">
+    <div class="container">
+      <p class="label" style="color:var(--or2)">Restaurant</p>
+      <h2 class="titre">Menu <em>& Repas</em></h2>
+      <div class="barre"></div>
+      <p>Toute notre cuisine est faite maison, de l'entrée au dessert, à partir de produits frais. Venez découvrir les saveurs authentiques de l'Alsace et des Vosges.</p>
+    </div>
+  </div>
+
+  <div class="menu-section">
+    <div class="container">
+      <div class="menu-grid">
+
+        <div class="menu-carte">
+          <h3 class="menu-carte-titre">Nos <em>spécialités</em></h3>
+          <p class="menu-carte-sous">Cuisine alsacienne · Tout fait maison</p>
+          <div class="menu-ligne">
+            Bouchées à la reine
+            <span class="menu-note">★ Spécialité du chef</span>
+          </div>
+          <div class="menu-ligne">
+            Rognons de veau
+            <span class="menu-note">Recette maison</span>
+          </div>
+          <div class="menu-ligne">
+            Poisson du jour
+            <span class="menu-note">Selon arrivage</span>
+          </div>
+          <div class="menu-ligne">
+            Buffet salades & crudités
+            <span class="menu-note">Entrée à volonté</span>
+          </div>
+          <div class="menu-ligne">
+            Dessert du jour
+            <span class="menu-note">Fait maison</span>
+          </div>
+          <div style="margin-top:28px;padding:16px 0;border-top:1px solid rgba(246,237,216,.15)">
+            <p style="font-size:13px;color:rgba(246,237,216,.55);font-style:italic">La carte peut varier selon la saison et les arrivages. Réservation recommandée.</p>
+          </div>
+        </div>
+
+        <div>
+          <div class="formule-box">
+            <p style="font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:6px">Notre formule</p>
+            <h3 class="formule-box-titre">Repas complet</h3>
+            <div class="formule-prix">24,50 – 26,50 <span style="font-size:24px">€</span></div>
+            <p class="formule-detail">Par personne, boissons non comprises</p>
+            <ul class="formule-items">
+              <li>Entrée à volonté</li>
+              <li>Plat du jour</li>
+              <li>Dessert maison</li>
+            </ul>
+            <a class="btn-ghost" href="tel:+33389388602" style="border-color:rgba(255,255,255,.5);color:#fff">Réserver une table →</a>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div style="background:var(--vert);padding:48px 24px;text-align:center">
+    <p style="font-family:'Cormorant Garamond',serif;font-size:22px;font-style:italic;font-weight:300;color:rgba(246,237,216,.85);max-width:600px;margin:0 auto 28px">« La cuisine est très bonne et copieuse — tout est fait maison de l'entrée au dessert, à partir de produits frais. »</p>
+    <p style="font-size:12px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--or2);margin-bottom:28px">Avis voyageur · TripAdvisor</p>
+    <button class="btn-or" onclick="ouvrirModal()">Réserver une table</button>
+  </div>
+
+</div><!-- /page-menu -->
+
+
+<!-- ══════════════════════════════
+     PAGE 4 — CHAMBRES
+══════════════════════════════ -->
+<div class="page" id="page-chambres">
+
+  <div class="chambres-hero">
+    <div class="container">
+      <p class="label" style="color:var(--or2)">Hébergement</p>
+      <h2 class="titre">Nos <em>chambres</em></h2>
+      <div class="barre"></div>
+      <p>9 chambres confortables au calme des Vosges, certaines avec vue sur le Grand Ballon. Chaque chambre dispose de la TV écran plat et du Wi-Fi gratuit.</p>
+    </div>
+  </div>
+
+  <div class="chambres-section">
+    <div class="container">
+      <div class="chambres-grid">
+
+        <div class="chambre-card">
+          <div class="chambre-img chambre-img-1">
+            <svg viewBox="0 0 24 24"><path d="M7 13c1.66 0 3-1.34 3-3S8.66 7 7 7s-3 1.34-3 3 1.34 3 3 3zm12-6h-8v7H3V5H1v15h2v-3h18v3h2v-9c0-2.21-1.79-4-4-4z"/></svg>
+          </div>
+          <div class="chambre-body">
+            <p class="chambre-type">Chambre simple</p>
+            <h3 class="chambre-nom">Chambre Standard</h3>
+            <p class="chambre-desc">Chambre simple confortable, idéale pour le voyageur solo ou l'étape randonnée. Calme et lumineuse.</p>
+            <div class="chambre-equip">
+              <span>Wi-Fi</span><span>TV écran plat</span><span>Salle de bain</span>
+            </div>
+            <div class="chambre-footer">
+              <div class="chambre-prix">dès 69 € <span>/ nuit</span></div>
+              <button class="btn-reserver" onclick="ouvrirModal()">Réserver</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="chambre-card">
+          <div class="chambre-img chambre-img-2">
+            <svg viewBox="0 0 24 24"><path d="M7 13c1.66 0 3-1.34 3-3S8.66 7 7 7s-3 1.34-3 3 1.34 3 3 3zm12-6h-8v7H3V5H1v15h2v-3h18v3h2v-9c0-2.21-1.79-4-4-4z"/></svg>
+            <div class="chambre-badge">Populaire</div>
+          </div>
+          <div class="chambre-body">
+            <p class="chambre-type">Chambre double</p>
+            <h3 class="chambre-nom">Chambre Confort</h3>
+            <p class="chambre-desc">Chambre double spacieuse et lumineuse pour deux personnes, avec vue sur la forêt vosgienne.</p>
+            <div class="chambre-equip">
+              <span>Wi-Fi</span><span>TV écran plat</span><span>Lit double</span><span>Vue forêt</span>
+            </div>
+            <div class="chambre-footer">
+              <div class="chambre-prix">dès 89 € <span>/ nuit</span></div>
+              <button class="btn-reserver" onclick="ouvrirModal()">Réserver</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="chambre-card">
+          <div class="chambre-img chambre-img-3">
+            <svg viewBox="0 0 24 24"><path d="M7 13c1.66 0 3-1.34 3-3S8.66 7 7 7s-3 1.34-3 3 1.34 3 3 3zm12-6h-8v7H3V5H1v15h2v-3h18v3h2v-9c0-2.21-1.79-4-4-4z"/></svg>
+            <div class="chambre-badge">Vue panoramique</div>
+          </div>
+          <div class="chambre-body">
+            <p class="chambre-type">Chambre supérieure</p>
+            <h3 class="chambre-nom">Vue Grand Ballon</h3>
+            <p class="chambre-desc">Chambre avec vue directe sur le Grand Ballon. Un réveil inoubliable sur les crêtes vosgiennes.</p>
+            <div class="chambre-equip">
+              <span>Wi-Fi</span><span>TV écran plat</span><span>Vue Grand Ballon</span>
+            </div>
+            <div class="chambre-footer">
+              <div class="chambre-prix">dès 108 € <span>/ nuit</span></div>
+              <button class="btn-reserver" onclick="ouvrirModal()">Réserver</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="margin-top:40px;background:var(--vert);color:var(--creme);padding:32px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px">
+        <div>
+          <p style="font-size:11px;font-weight:600;letter-spacing:.25em;text-transform:uppercase;color:var(--or2);margin-bottom:6px">Formule recommandée</p>
+          <h3 style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300">Demi-pension incluse</h3>
+          <p style="font-size:14px;color:rgba(246,237,216,.65);margin-top:4px">Chambre + dîner complet + petit-déjeuner</p>
+        </div>
+        <div style="text-align:right">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:300;color:var(--or2);line-height:1">45 €</div>
+          <div style="font-size:13px;color:rgba(246,237,216,.55)">/&nbsp;personne &nbsp;·&nbsp; 60 € pour 2</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chambres-equip-section">
+    <div class="container">
+      <p class="label">Équipements</p>
+      <h2 class="titre">Inclus dans <em>votre séjour</em></h2>
+      <div class="barre"></div>
+      <div class="equip-grid">
+        <span class="equip-tag">📶 Wi-Fi gratuit</span>
+        <span class="equip-tag">🚗 Parking gratuit</span>
+        <span class="equip-tag">📺 TV écran plat</span>
+        <span class="equip-tag">🐾 Animaux acceptés</span>
+        <span class="equip-tag">🚭 Établissement non-fumeurs</span>
+        <span class="equip-tag">♿ Parking PMR</span>
+        <span class="equip-tag">☕ Petit-déjeuner disponible</span>
+        <span class="equip-tag">🍷 Bar sur place</span>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page-chambres -->
+
+
+<!-- ══════════════════════════════
+     PAGE 5 — CONTACT
+══════════════════════════════ -->
+<div class="page" id="page-contact">
+
+  <div class="contact-hero">
+    <div class="container">
+      <p class="label" style="color:var(--or2)">Nous joindre</p>
+      <h2 class="titre">Contact &<br><em>Réservation</em></h2>
+      <div class="barre"></div>
+    </div>
+  </div>
+
+  <div class="contact-section">
+    <div class="container">
+      <div class="contact-grid">
+
+        <div class="resa-box">
+          <h3>Réservez votre séjour</h3>
+          <p>Vérifiez les disponibilités et les tarifs 2026 en temps réel. Confirmation immédiate, annulation flexible selon les conditions de l'offre.</p>
+          <button class="btn-blanc" onclick="ouvrirModal()">Réserver sur Booking.com →</button>
+          <p class="resa-tel-label" style="margin-top:32px">Ou appelez-nous directement</p>
+          <a class="resa-tel" href="tel:+33389388602">03 89 38 86 02</a>
+          <p class="resa-tel-label">Nous serons ravis de vous accueillir</p>
+        </div>
+
+        <div>
+          <div class="contact-infos-box">
+            <div class="c-bloc">
+              <p class="c-lbl">Adresse</p>
+              <p>Col du Hundsrück<br>68290 Bourbach-le-Haut<br>Alsace, France</p>
+            </div>
+            <div class="c-bloc">
+              <p class="c-lbl">Horaires restaurant</p>
+              <div class="horaires-grid">
+                <div class="horaire-item">
+                  <div class="horaire-jour">Midi</div>
+                  <div class="horaire-heure">12h00 – 14h00</div>
+                </div>
+                <div class="horaire-item">
+                  <div class="horaire-jour">Soir</div>
+                  <div class="horaire-heure">19h00 – 21h00</div>
+                </div>
+              </div>
+              <p style="font-size:12px;color:var(--gris);margin-top:10px">Ouvert toute l'année · Réservation recommandée</p>
+            </div>
+            <div class="c-bloc">
+              <p class="c-lbl">Accès</p>
+              <p>Gare de Mulhouse : 31 km<br>Gare de Belfort : 38 km<br>Aéroport Bâle-Mulhouse : 56 km</p>
+            </div>
+            <div class="c-bloc" style="margin-bottom:0">
+              <p class="c-lbl">Nous trouver</p>
+              <a href="https://maps.google.com/?q=Col+du+Hundsruck+Bourbach-le-Haut+68290+France" target="_blank"
+                 style="display:inline-block;margin-top:8px;background:var(--vert);color:var(--creme);padding:12px 24px;font-size:13px;font-weight:600;letter-spacing:.08em;text-decoration:none;transition:background .3s">
+                Ouvrir dans Google Maps →
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Avis -->
+      <div style="margin-top:40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px">
+        <div style="background:var(--creme);padding:28px">
+          <div style="color:var(--or);font-size:15px;letter-spacing:2px;margin-bottom:12px">★★★★★</div>
+          <p style="font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;color:var(--texte);line-height:1.65;margin-bottom:14px">« Accueil chaleureux et familial. La chambre était propre, spacieuse et calme. Les repas étaient bons et très copieux. »</p>
+          <p style="font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gris)">Couple — Booking.com</p>
+        </div>
+        <div style="background:var(--creme);padding:28px">
+          <div style="color:var(--or);font-size:15px;letter-spacing:2px;margin-bottom:12px">★★★★★</div>
+          <p style="font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;color:var(--texte);line-height:1.65;margin-bottom:14px">« Arrivé très tardivement, un accueil irréprochable. Le repas nous attendait comme à la maison. Magnifique vue en repartant. »</p>
+          <p style="font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gris)">Voyageur — Booking.com</p>
+        </div>
+        <div style="background:var(--creme);padding:28px">
+          <div style="color:var(--or);font-size:15px;letter-spacing:2px;margin-bottom:12px">★★★★★</div>
+          <p style="font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;color:var(--texte);line-height:1.65;margin-bottom:14px">« Un écrin de verdure et de fraîcheur. Le personnel travaille en famille, on est vraiment bien accueillis. »</p>
+          <p style="font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gris)">Famille — TripAdvisor</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div><!-- /page-contact -->
+
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <div class="footer-logo">Hôtel Restaurant <span>La Fourmi</span></div>
+  <p>Col du Hundsrück · 68290 Bourbach-le-Haut · 03 89 38 86 02<br>© 2026 Hôtel Restaurant La Fourmi — Tous droits réservés</p>
+  <button style="background:none;border:none;cursor:pointer;font-size:13px;color:rgba(246,237,216,.35);text-decoration:none;" onclick="ouvrirModal()">Réserver →</button>
+</footer>
+
+
+<script>
+const MAP_SRC = "https://maps.google.com/maps?q=Hotel+Restaurant+La+Fourmi+Bourbach-le-Haut&t=&z=13&ie=UTF8&iwloc=&output=embed";
+
+function toggleMenu(){
+  document.getElementById('hamburger').classList.toggle('open');
+  document.getElementById('nav-menu').classList.toggle('open');
+  document.getElementById('nav-overlay').classList.toggle('open');
+}
+function closeMenu(){
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('nav-menu').classList.remove('open');
+  document.getElementById('nav-overlay').classList.remove('open');
+}
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-menu-item').forEach(t=>t.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  const tab=document.getElementById('tab-'+id);
+  if(tab) tab.classList.add('active');
+  window.scrollTo(0,0);
+  closeMenu();
+  if(id==='trouver'){
+    const iframe=document.getElementById('gmap-iframe');
+    if(iframe){ iframe.src=''; setTimeout(()=>{ iframe.src=MAP_SRC; },50); }
+  }
+}
+function ouvrirModal(){
+  document.getElementById('modal-tel').classList.remove('show');
+  document.getElementById('modal-overlay').classList.add('open');
+}
+function closeModal(){
+  document.getElementById('modal-overlay').classList.remove('open');
+}
+function fermerModal(e){
+  if(e.target===document.getElementById('modal-overlay')) closeModal();
+}
+function afficherTel(){
+  document.getElementById('modal-tel').classList.add('show');
+}
+</script>
+<!-- ── MODAL RÉSERVATION ── -->
+<div class="modal-overlay" id="modal-overlay" onclick="fermerModal(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <p class="modal-label">Réservation</p>
+    <h2 class="modal-titre">Que souhaitez-vous réserver ?</h2>
+    <p class="modal-sous">Choisissez ci-dessous selon votre projet, nous nous adaptons à votre besoin.</p>
+    <div class="modal-choix">
+      <a class="modal-btn-dormir" href="https://www.booking.com/hotel/fr/restaurant-la-fourmi.fr.html" target="_blank" onclick="closeModal()">
+        <span class="modal-btn-icon">🛏</span>
+        <span>
+          <span class="modal-btn-titre">Réserver une chambre</span>
+          <span class="modal-btn-desc">Nuit + petit-déjeuner · Demi-pension disponible</span>
+        </span>
+      </a>
+      <button class="modal-btn-manger" onclick="afficherTel()">
+        <span class="modal-btn-icon">🍽</span>
+        <span>
+          <span class="modal-btn-titre">Réserver pour déjeuner</span>
+          <span class="modal-btn-desc">Formule midi · 24,50 – 26,50 €</span>
+        </span>
+      </button>
+      <div class="modal-tel-result" id="modal-tel">
+        <p>Appelez-nous pour réserver votre table :</p>
+        <a href="tel:+33389388602">03 89 38 86 02</a>
+        <span>Du lundi au dimanche · 12h00 – 14h00 et 19h00 – 21h00</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
